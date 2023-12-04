@@ -1,0 +1,56 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: order-service
+    kafka:
+      topic:
+        request: "ORDER_WAREHOUSE_TOPIC"
+        response: "ORDER_WAREHOUSE_TOPIC_ASK"
+        final: "WAREHOUSE_ORDER_TOPIC"
+
+  kafka:
+    producer:
+      bootstrap-servers: "127.0.0.1:9092"
+      client-id: "order-producer"
+
+    consumer:
+      group-id: "order-group"
+      bootstrap-servers: "localhost:9092"
+      client-id: "order-consumer"
+      auto-offset-reset: earliest
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=public
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: password
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+  jpa:
+    show-sql: true
+  jmx:
+    enabled: true
+
+  eureka:
+    client:
+      registerWithEureka: false
+      fetchRegistry: false
+      service-url:
+        defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: metrics, health, logfile
+  endpoint:
+    health:
+      show-details: always
+  health:
+    defaults:
+      enabled: true
+
+logging:
+  file:
+    name: order-service.log

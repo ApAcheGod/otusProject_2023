@@ -1,0 +1,50 @@
+server:
+  port: 8762
+
+spring:
+  application:
+    name: gateway-service
+
+  cloud:
+    gateway:
+      routes:
+        - id: authentication-service
+          uri: lb://authentication-service
+          predicates:
+            - Path=/auth/**
+          filters:
+            - AuthenticationFilter
+
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+           - Path=/order/**
+          filters:
+           - AuthenticationFilter
+
+#        - id: product-service
+#          uri: lb://product-service
+#          predicates:
+#            - Path=/products/**
+#          filters:
+#            - AuthenticationFilter
+
+        - id: warehouse-service
+          uri: lb://warehouse-service
+          predicates:
+            - Path=/warehouse/**
+          filters:
+            - AuthenticationFilter
+
+        - id: factory-service
+          uri: lb://factory-service
+          predicates:
+            - Path=/factory/**
+          filters:
+            - AuthenticationFilter
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://localhost:8761/eureka/
+

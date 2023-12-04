@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="2023-12-01--create-user-role" author="nik.alpatov@mail.ru">
+        <createTable tableName="USERS" remarks="Пользователи">
+            <column name="ID" type="bigserial" remarks="Уникальный идентификатор пользователя" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="PK_USERS_ID"/>
+            </column>
+            <column name="USER_NAME" type="varchar(255)" remarks="Логин пользователя">
+                <constraints nullable="false" primaryKeyName="NOT_NULL_CONSTRAINT"/>
+            </column>
+            <column name="PASSWORD" type="varchar(255)" remarks="Пароль пользователя"/>
+            <column name="EMAIL" type="varchar(255)" remarks="Почта пользователя"/>
+
+        </createTable>
+
+        <createTable tableName="ROLE" remarks="Роли">
+            <column name="ID" type="bigserial" remarks="Уникальный идентификатор роли" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="PK_ROLE_ID"/>
+            </column>
+            <column name="ROLE_NAME" type="varchar(255)" remarks="Наименование роли">
+                <constraints nullable="false" primaryKeyName="NOT_NULL_CONSTRAINT"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="USER2ROLE" remarks="Связь пользователя с ролями">
+            <column name="ID" type="bigserial" remarks="Уникальный идентификатор" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="PK_USER2ROLE_ID"/>
+            </column>
+            <column name="USER_ID" type="bigserial" remarks="Уникальный идентификатор автора"/>
+            <column name="ROLE_ID" type="bigserial" remarks="Уникальный идентификатор роли"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="USER2ROLE"
+                                 baseColumnNames="USER_ID"
+                                 constraintName="FK_USER_ID"
+                                 referencedTableName="USERS"
+                                 referencedColumnNames="ID"
+                                 onDelete="CASCADE"/>
+
+        <addForeignKeyConstraint baseTableName="USER2ROLE"
+                                 baseColumnNames="ROLE_ID"
+                                 constraintName="FK_ROLE_ID"
+                                 referencedTableName="ROLE"
+                                 referencedColumnNames="ID"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+
+</databaseChangeLog>

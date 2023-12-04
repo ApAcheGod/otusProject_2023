@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="2023-12-01-insert-user-data" author="nik.alpatov@mail.ru">
+        <loadData tableName="USERS"
+                  file="../data/2023-12-01--user-data.csv"
+                  relativeToChangelogFile="true"
+                  separator=";"
+                  quotchar="'">
+
+            <column header="ID" name="ID" type="bigserial"/>
+            <column header="USER_NAME" name="USER_NAME" type="varchar(255)"/>
+            <column header="PASSWORD" name="PASSWORD" type="varchar(255)"/>
+            <column header="EMAIL" name="EMAIL" type="varchar(255)"/>
+        </loadData>
+
+        <loadData tableName="ROLE"
+                  file="../data/2023-12-01--role-data.csv"
+                  relativeToChangelogFile="true"
+                  separator=";"
+                  quotchar="'">
+
+            <column header="ID" name="ID" type="bigserial"/>
+            <column header="ROLE_NAME" name="ROLE_NAME" type="varchar(255)"/>
+        </loadData>
+
+        <loadData tableName="USER2ROLE"
+                  file="../data/2023-12-01--user2role-data.csv"
+                  relativeToChangelogFile="true"
+                  separator=";"
+                  quotchar="'">
+
+            <column header="ID" name="ID" type="bigserial"/>
+            <column header="USER_ID" name="USER_ID" type="bigserial"/>
+            <column header="ROLE_ID" name="ROLE_ID" type="bigserial"/>
+        </loadData>
+
+    </changeSet>
+
+</databaseChangeLog>
