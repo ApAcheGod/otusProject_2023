@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="2023-12-01--insert-account-data" author="nik.alpatov@mail.ru">
+        <loadData tableName="ACCOUNT"
+                  file="../data/2023-11-30--account-data.csv"
+                  relativeToChangelogFile="true"
+                  separator=";"
+                  quotchar="'">
+
+            <column header="PRODUCT_ID" name="PRODUCT_ID" type="UUID"/>
+            <column header="AMOUNT" name="AMOUNT" type="bigint"/>
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="2023-11-30--insert-product-data" author="nik.alpatov@mail.ru">
+        <loadData tableName="PRODUCT"
+                  file="../data/2023-11-30--product-data.csv"
+                  relativeToChangelogFile="true"
+                  separator=";"
+                  quotchar="'">
+
+            <column header="ID" name="ID" type="UUID"/>
+            <column header="NAME" name="NAME" type="varchar(255)"/>
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>

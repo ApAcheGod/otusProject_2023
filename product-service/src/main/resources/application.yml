@@ -1,0 +1,40 @@
+server:
+  port: 8084
+spring:
+  application:
+    name: product-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=public
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: password
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+  jpa:
+    show-sql: true
+  jmx:
+    enabled: true
+
+  eureka:
+    client:
+      registerWithEureka: false
+      fetchRegistry: false
+      service-url:
+        defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: metrics, health, logfile
+  endpoint:
+    health:
+      show-details: always
+  health:
+    defaults:
+      enabled: true
+
+logging:
+  file:
+    name: product-service.log
